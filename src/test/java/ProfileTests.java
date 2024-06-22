@@ -15,6 +15,7 @@ public class ProfileTests extends BaseTest{
         navigateToProfilePage();
         String uniqueName = generateUniqueName();
         changeName(uniqueName);
+        Thread.sleep(1000);
         String profileName = getProfileName();
         Assert.assertEquals(profileName, uniqueName);
     }
@@ -26,7 +27,8 @@ public class ProfileTests extends BaseTest{
     }
 
     private String getProfileName() {
-        WebElement profileName = driver.findElement(By.cssSelector("span.name"));
+        WebElement profileName = wait.until(ExpectedConditions.visibilityOfElementLocated((By.cssSelector("span.name"))));
+                //getDriver().findElement(By.cssSelector("span.name"));
         return profileName.getText();
     }
 
@@ -42,18 +44,18 @@ public class ProfileTests extends BaseTest{
     }
 
     private void saveChanges() {
-        WebElement saveButton = driver.findElement(By.className("btn-submit"));
+        WebElement saveButton = getDriver().findElement(By.className("btn-submit"));
         saveButton.click();
     }
 
     private void enterNewName(String name) {
-        WebElement newName = driver.findElement(By.id("inputProfileName"));
+        WebElement newName = getDriver().findElement(By.id("inputProfileName"));
         newName.clear();
         newName.sendKeys(name);
     }
 
     private void enterCurrentPassword(String password) {
-        WebElement currentPasswordField = driver.findElement(By.id("inputProfileCurrentPassword"));
+        WebElement currentPasswordField = getDriver().findElement(By.id("inputProfileCurrentPassword"));
         currentPasswordField.sendKeys(password);
     }
 

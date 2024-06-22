@@ -9,10 +9,22 @@ import pages.LoginPage;
 
 public class LoginTests extends BaseTest {
 
-    @Test
+    /*@Test
     public void loginValidEmailPassword() throws InterruptedException{
         LoginPage loginPage = new LoginPage(driver);
         HomePage homePage = new HomePage(driver);
+
+        loginPage.provideEmail("demo@testpro.io");
+        loginPage.providePassword("te$t$tudent");
+        loginPage.clickSubmit();
+
+        Assert.assertTrue(homePage.getUserAvatar().isDisplayed());
+    }*/
+
+    @Test
+    public void loginValidEmailPassword() throws InterruptedException{
+        LoginPage loginPage = new LoginPage(getDriver());
+        HomePage homePage = new HomePage(getDriver());
 
         loginPage.provideEmail("demo@testpro.io");
         loginPage.providePassword("te$t$tudent");
@@ -32,10 +44,10 @@ public class LoginTests extends BaseTest {
         submit();
 
         // Expected Result
-        Assert.assertEquals(driver.getCurrentUrl(), expectedUrl); // https://qa.koel.app/
+        Assert.assertEquals(getDriver().getCurrentUrl(), expectedUrl); // https://qa.koel.app/
     }
 
-   // @Test
+    //@Test
     public void loginValidEmailEmptyPassword() throws InterruptedException {
 
         //navigateToPage();
@@ -43,8 +55,17 @@ public class LoginTests extends BaseTest {
         enterEmail("invalid@testpro.io");
         submit();
         // Expected Result
-        Assert.assertEquals(driver.getCurrentUrl(), expectedUrl); //https://qa.koel.app/
+        Assert.assertEquals(getDriver().getCurrentUrl(), expectedUrl); //https://qa.koel.app/
     }
+
+    /*@Test(dataProvider = "NegativeLoginTestData", dataProviderClass = TestDataProvider.class)
+    public void negativeLoginTest(String email, String password) throws InterruptedException {
+        String expectedUrl = "https://qa.koel.app/";
+        enterEmail(email);
+        enterPassword(password);
+        submit();
+        Assert.assertEquals(driver.getCurrentUrl(), expectedUrl);
+    }*/
 
     //@Test(dataProvider = "NegativeLoginTestData", dataProviderClass = TestDataProvider.class)
     public void negativeLoginTest(String email, String password) throws InterruptedException {
@@ -52,7 +73,9 @@ public class LoginTests extends BaseTest {
         enterEmail(email);
         enterPassword(password);
         submit();
-        Assert.assertEquals(driver.getCurrentUrl(), expectedUrl);
+        Assert.assertEquals(getDriver().getCurrentUrl(), expectedUrl);
     }
+
+
 
 }
